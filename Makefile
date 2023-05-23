@@ -1,4 +1,4 @@
-all: bin/hello-mac bin/numbers-mac bin/numbers
+all: bin/hello-mac bin/numbers-mac bin/numbers bin/cmdargs-mac bin/cmdargs2-mac
 
 
 
@@ -29,7 +29,27 @@ bin/numbers: src/numbers.c
 
 
 
+cmdargs-mac: bin/cmdargs-mac
+
+bin/cmdargs-mac: bin/cmdargs-mac.o
+	ld -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lc -o bin/cmdargs-mac bin/cmdargs-mac.o
+
+bin/cmdargs-mac.o: src/cmdargs-mac.asm
+	nasm -fmacho64 -o bin/cmdargs-mac.o src/cmdargs-mac.asm
+
+
+
+cmdargs2-mac: bin/cmdargs2-mac
+
+bin/cmdargs2-mac: bin/cmdargs2-mac.o
+	ld -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lc -o bin/cmdargs2-mac bin/cmdargs2-mac.o
+
+bin/cmdargs2-mac.o: src/cmdargs2-mac.asm
+	nasm -fmacho64 -o bin/cmdargs2-mac.o src/cmdargs2-mac.asm
+
+
+
 clean:
 	rm -f bin/*
 
-.PHONY: all clean hello-mac numbers-mac numbers
+.PHONY: all clean hello-mac numbers-mac numbers cmdargs-mac cmdargs2-mac
