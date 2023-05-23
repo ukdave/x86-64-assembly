@@ -1,4 +1,4 @@
-all: bin/hello-mac bin/numbers-mac
+all: bin/hello-mac bin/numbers-mac bin/numbers
 
 
 
@@ -22,7 +22,14 @@ bin/numbers-mac.o: src/numbers-mac.asm
 
 
 
+numbers: bin/numbers
+
+bin/numbers: src/numbers.c
+	gcc -o bin/numbers src/numbers.c
+
+
+
 clean:
 	rm -f bin/*
 
-.PHONY: all clean hello-mac numbers-mac
+.PHONY: all clean hello-mac numbers-mac numbers
